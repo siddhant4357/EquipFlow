@@ -34,8 +34,8 @@ const Login = () => {
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-primary)', padding: '20px' }}>
       <div className="card" style={{ width: '100%', maxWidth: '420px', padding: '40px 32px' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <div className="logo-icon" style={{ margin: '0 auto 16px' }}>🐆</div>
-          <h1 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '8px' }}>AssetCheetah</h1>
+          <div className="logo-icon" style={{ margin: '0 auto 16px' }}>⚡</div>
+          <h1 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '8px' }}>EquipFlow</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Industrial Asset Management</p>
         </div>
 
@@ -53,7 +53,7 @@ const Login = () => {
               className="form-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="e.g. admin@assetcheetah.com"
+              placeholder="e.g. admin@equipflow.com"
               required
             />
           </div>
@@ -75,8 +75,8 @@ const Login = () => {
 
         <div style={{ marginTop: '24px', textAlign: 'center', fontSize: '12px', color: 'var(--text-muted)' }}>
           <p>Demo Accounts:</p>
-          <p>admin@assetcheetah.com / admin123</p>
-          <p>operator@assetcheetah.com / operator123</p>
+          <p>admin@equipflow.com / admin123</p>
+          <p>operator@equipflow.com / operator123</p>
         </div>
       </div>
     </div>

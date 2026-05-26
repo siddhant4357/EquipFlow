@@ -15,27 +15,27 @@ const seed = async () => {
   // Create users
   const admin = await User.create({
     name: 'Admin User',
-    email: 'admin@assetcheetah.com',
+    email: 'admin@equipflow.com',
     password: 'admin123',
     role: 'admin',
   });
   const manager = await User.create({
     name: 'Site Manager',
-    email: 'manager@assetcheetah.com',
+    email: 'manager@equipflow.com',
     password: 'manager123',
     role: 'manager',
   });
   const operator = await User.create({
     name: 'Field Operator',
-    email: 'operator@assetcheetah.com',
+    email: 'operator@equipflow.com',
     password: 'operator123',
     role: 'operator',
   });
 
   console.log('✅ Users created:');
-  console.log(`   Admin    → admin@assetcheetah.com / admin123`);
-  console.log(`   Manager  → manager@assetcheetah.com / manager123`);
-  console.log(`   Operator → operator@assetcheetah.com / operator123\n`);
+  console.log(`   Admin    → admin@equipflow.com / admin123`);
+  console.log(`   Manager  → manager@equipflow.com / manager123`);
+  console.log(`   Operator → operator@equipflow.com / operator123\n`);
 
   // Create sample assets
   const assetDefs = [

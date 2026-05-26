@@ -8,7 +8,7 @@ const reverseGeocode = async (lat, lng) => {
   try {
     const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`;
     const response = await fetch(url, {
-      headers: { 'User-Agent': 'AssetCheetah/1.0' },
+      headers: { 'User-Agent': 'EquipFlow/1.0' },
     });
     if (!response.ok) return 'Unknown Location';
     const data = await response.json();

@@ -1,6 +1,6 @@
 import { openDB } from 'idb';
 
-const DB_NAME = 'assetcheetah';
+const DB_NAME = 'equipflow';
 const DB_VERSION = 1;
 
 const getDB = () =>

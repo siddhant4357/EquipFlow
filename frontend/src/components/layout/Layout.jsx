@@ -33,9 +33,9 @@ const Layout = () => {
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-brand">
-          <div className="logo-icon">🐆</div>
+          <div className="logo-icon">⚡</div>
           <div>
-            <h1>Asset<span>Cheetah</span></h1>
+            <h1>Equip<span>Flow</span></h1>
           </div>
         </div>
 

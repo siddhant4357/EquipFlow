@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     success: true,
-    message: '🐆 AssetCheetah API is running',
+    message: '⚡ EquipFlow API is running',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV,
   });
@@ -52,7 +52,7 @@ app.use(errorHandler);
 // ─── Start Server ─────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`\n🐆 AssetCheetah API running on http://localhost:${PORT}`);
+  console.log(`\n⚡ EquipFlow API running on http://localhost:${PORT}`);
   console.log(`📋 Health check: http://localhost:${PORT}/api/health\n`);
 });
 

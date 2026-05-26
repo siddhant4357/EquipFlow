@@ -22,7 +22,7 @@ const AssetList = () => {
 
   const handlePrint = useReactToPrint({
     contentRef: printRef,
-    documentTitle: 'AssetCheetah_QRCodes',
+    documentTitle: 'EquipFlow_QRCodes',
   });
 
   const fetchAssets = async () => {

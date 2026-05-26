@@ -13,8 +13,8 @@ export default defineConfig({
         enabled: true,
       },
       manifest: {
-        name: 'AssetCheetah',
-        short_name: 'AssetCheetah',
+        name: 'EquipFlow',
+        short_name: 'EquipFlow',
         description: 'Industrial Asset Management System',
         theme_color: '#0f172a',
         background_color: '#0f172a',

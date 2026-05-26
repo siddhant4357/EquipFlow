@@ -3,7 +3,7 @@ import React from 'react';
 const BulkQRExport = React.forwardRef(({ assets }, ref) => {
   return (
     <div ref={ref} style={{ padding: '20px', background: '#fff', minHeight: '100vh', color: '#000' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '20px', fontFamily: 'sans-serif' }}>AssetCheetah - QR Code Export</h2>
+      <h2 style={{ textAlign: 'center', marginBottom: '20px', fontFamily: 'sans-serif' }}>EquipFlow - QR Code Export</h2>
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
@@ -27,7 +27,7 @@ const BulkQRExport = React.forwardRef(({ assets }, ref) => {
                 No QR Code
               </div>
             )}
-            <p style={{ margin: '12px 0 0 0', fontSize: '10px', color: '#999', fontFamily: 'sans-serif' }}>AssetCheetah &copy; {new Date().getFullYear()}</p>
+            <p style={{ margin: '12px 0 0 0', fontSize: '10px', color: '#999', fontFamily: 'sans-serif' }}>EquipFlow &copy; {new Date().getFullYear()}</p>
           </div>
         ))}
       </div>

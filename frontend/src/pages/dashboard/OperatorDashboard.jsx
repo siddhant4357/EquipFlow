@@ -68,7 +68,7 @@ const OperatorDashboard = () => {
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div className="logo-icon" style={{ width: '32px', height: '32px', fontSize: '16px' }}>🐆</div>
+          <div className="logo-icon" style={{ width: '32px', height: '32px', fontSize: '16px' }}>⚡</div>
           <h2 style={{ fontSize: '18px', fontWeight: '700' }}>Operator Mode</h2>
         </div>
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
