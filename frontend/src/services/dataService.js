@@ -40,6 +40,10 @@ export const dashboardService = {
     const { data } = await api.get('/dashboard/activity', { params: { limit } });
     return data;
   },
+  runPredictions: async () => {
+    const { data } = await api.post('/dashboard/run-predictions');
+    return data;
+  },
 };
 
 export const userService = {

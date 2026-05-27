@@ -52,6 +52,12 @@ const assetSchema = new mongoose.Schema(
     nextMaintenanceDate: {
       type: Date,
     },
+    aiFailureRisk: {
+      type: Number,
+      default: null,
+      min: 0,
+      max: 1
+    },
     tags: [{ type: String }],
   },
   { timestamps: true }

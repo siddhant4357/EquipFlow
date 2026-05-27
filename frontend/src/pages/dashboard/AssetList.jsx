@@ -82,6 +82,7 @@ const AssetList = () => {
                 <th>Name</th>
                 <th>Category</th>
                 <th>Status</th>
+                <th>AI Risk Score</th>
                 <th>Assigned To</th>
                 <th style={{ textAlign: 'right' }}>Actions</th>
               </tr>
@@ -94,6 +95,18 @@ const AssetList = () => {
                   <td style={{ textTransform: 'capitalize' }}>{asset.category}</td>
                   <td>
                     <span className={`badge badge-${asset.status}`}>{asset.status}</span>
+                  </td>
+                  <td>
+                    {asset.aiFailureRisk != null ? (
+                      <span className={`badge`} style={{
+                        background: asset.aiFailureRisk > 0.75 ? 'rgba(239, 68, 68, 0.15)' : (asset.aiFailureRisk > 0.5 ? 'rgba(245, 158, 11, 0.15)' : 'rgba(16, 185, 129, 0.15)'),
+                        color: asset.aiFailureRisk > 0.75 ? 'var(--danger)' : (asset.aiFailureRisk > 0.5 ? 'var(--warning)' : 'var(--success)')
+                      }}>
+                        {asset.aiFailureRisk > 0.75 ? '🔴' : (asset.aiFailureRisk > 0.5 ? '🟡' : '🟢')} {(asset.aiFailureRisk * 100).toFixed(0)}%
+                      </span>
+                    ) : (
+                      <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Not analyzed</span>
+                    )}
                   </td>
                   <td>{asset.assignedTo?.name || <span style={{ color: 'var(--text-muted)' }}>Unassigned</span>}</td>
                   <td style={{ textAlign: 'right', display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>

@@ -59,6 +59,27 @@ const DashboardOverview = () => {
         </div>
       </div>
 
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+        <button 
+          className="btn btn-primary" 
+          onClick={async () => {
+            try {
+              setLoading(true);
+              await dashboardService.runPredictions();
+              const statsData = await dashboardService.getOverview();
+              setStats(statsData.data);
+            } catch (err) {
+              console.error('AI run failed', err);
+              alert('Failed to run AI predictions. Ensure the AI Microservice (python main.py) is running on port 8001.');
+            } finally {
+              setLoading(false);
+            }
+          }}
+        >
+          <span className="icon">🧠</span> Run AI Predictive Analysis
+        </button>
+      </div>
+
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
         
         {/* Recent Activity */}
@@ -122,6 +143,41 @@ const DashboardOverview = () => {
                     </div>
                     <div className="sub" style={{ color: 'var(--danger)' }}>
                       Due: {new Date(asset.nextMaintenanceDate).toLocaleDateString()}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* AI Predictive Alerts */}
+        <div className="card">
+          <div className="card-header">
+            <h3 className="card-title">AI Predictive Alerts 🧠</h3>
+            {stats?.atRiskAssets?.length > 0 && (
+              <div className="badge badge-danger">{stats.atRiskAssets.length} At Risk</div>
+            )}
+          </div>
+          
+          {(!stats?.atRiskAssets || stats.atRiskAssets.length === 0) ? (
+            <div className="empty-state">
+              <div className="empty-icon" style={{ color: 'var(--success)' }}>🤖</div>
+              <p>AI predicts all equipment is healthy.</p>
+            </div>
+          ) : (
+            <div>
+              {stats.atRiskAssets.map((asset) => (
+                <div key={asset._id} className="activity-item">
+                  <div className="activity-dot" style={{ background: asset.aiFailureRisk > 0.75 ? 'rgba(239, 68, 68, 0.15)' : 'rgba(245, 158, 11, 0.15)', color: asset.aiFailureRisk > 0.75 ? 'var(--danger)' : 'var(--warning)' }}>
+                    {asset.aiFailureRisk > 0.75 ? '🔴' : '🟡'}
+                  </div>
+                  <div className="activity-info">
+                    <div className="title">
+                      <span style={{ color: 'var(--accent)', fontWeight: '600' }}>{asset.assetId}</span> ({asset.name})
+                    </div>
+                    <div className="sub" style={{ color: asset.aiFailureRisk > 0.75 ? 'var(--danger)' : 'var(--warning)' }}>
+                      Failure Probability: {(asset.aiFailureRisk * 100).toFixed(1)}%
                     </div>
                   </div>
                 </div>

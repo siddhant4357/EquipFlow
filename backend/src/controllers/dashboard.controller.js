@@ -7,7 +7,7 @@ const User = require('../models/user.model');
 // @access  Admin, Manager
 const getOverview = async (req, res, next) => {
   try {
-    const [totalAssets, byStatus, totalUsers, recentEvents, overdueAssetsList] = await Promise.all([
+    const [totalAssets, byStatus, totalUsers, recentEvents, overdueAssetsList, atRiskAssetsList] = await Promise.all([
       Asset.countDocuments({}),
       Asset.aggregate([{ $group: { _id: '$status', count: { $sum: 1 } } }]),
       User.countDocuments({ isActive: true }),
@@ -16,6 +16,10 @@ const getOverview = async (req, res, next) => {
         nextMaintenanceDate: { $lt: new Date() },
         status: { $ne: 'maintenance' },
       }).select('assetId name category nextMaintenanceDate').limit(10),
+      Asset.find({
+        aiFailureRisk: { $gt: 0.50 },
+        status: { $ne: 'retired' },
+      }).select('assetId name category aiFailureRisk').sort({ aiFailureRisk: -1 }).limit(10),
     ]);
 
     const statusMap = {};
@@ -34,6 +38,7 @@ const getOverview = async (req, res, next) => {
         eventsLast24h: recentEvents,
         overdueMaintenanceCount: overdueAssetsList.length,
         overdueAssets: overdueAssetsList,
+        atRiskAssets: atRiskAssetsList,
       },
     });
   } catch (error) {

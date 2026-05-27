@@ -14,20 +14,20 @@ const QRScanner = ({ onScan }) => {
   }, [onScan]);
 
   useEffect(() => {
-    // Prevent double-init in React StrictMode
-    if (startedRef.current) return;
-    startedRef.current = true;
+    let isUnmounted = false;
+    let startTimeout = null;
 
-    const scanner = new Html5Qrcode('qr-reader-container');
-    scannerRef.current = scanner;
+    const initScanner = async () => {
+      if (isUnmounted) return;
+      
+      const scanner = new Html5Qrcode('qr-reader-container');
+      scannerRef.current = scanner;
 
-    const start = async () => {
       try {
         await scanner.start(
           { facingMode: 'environment' },
           {
             fps: 15,
-            // Remove tight qrbox to scan from whole frame
             qrbox: (viewfinderWidth, viewfinderHeight) => {
               const size = Math.min(viewfinderWidth, viewfinderHeight) * 0.8;
               return { width: size, height: size };
@@ -35,11 +35,10 @@ const QRScanner = ({ onScan }) => {
             aspectRatio: 1.0,
             disableFlip: false,
             experimentalFeatures: {
-              useBarCodeDetectorIfSupported: true, // Use native browser API if available (faster)
+              useBarCodeDetectorIfSupported: true,
             },
           },
           (decodedText) => {
-            // Block any re-fires while camera is stopping
             if (hasScannedRef.current) return;
             hasScannedRef.current = true;
 
@@ -51,23 +50,41 @@ const QRScanner = ({ onScan }) => {
             }
             cb(decodedText);
           },
-          () => {} // suppress frame errors
+          () => {} 
         );
+        
+        if (isUnmounted) {
+          scanner.stop().catch(() => {});
+          return;
+        }
+        
         setStatus('scanning');
       } catch (err) {
-        console.error('Camera error:', err);
-        setErrorMsg('Could not access camera. Please allow camera permission and try again.');
-        setStatus('error');
+        if (!isUnmounted) {
+          console.error('Camera error:', err);
+          setErrorMsg('Could not access camera. Please allow camera permission and try again.');
+          setStatus('error');
+        }
       }
     };
 
-    start();
+    // Delay start by 150ms to bypass React StrictMode's rapid mount-unmount-mount cycle
+    startTimeout = setTimeout(() => {
+      initScanner();
+    }, 150);
 
     return () => {
-      if (scannerRef.current?.isScanning) {
-        scannerRef.current.stop().catch(() => {});
+      isUnmounted = true;
+      if (startTimeout) clearTimeout(startTimeout);
+      
+      if (scannerRef.current) {
+        try {
+          scannerRef.current.stop().catch(() => {});
+        } catch (e) {
+          // Ignore state errors
+        }
+        scannerRef.current = null;
       }
-      scannerRef.current = null;
     };
   }, []);
 
